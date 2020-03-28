@@ -112,6 +112,15 @@ while((ret=in.readLine())!=null){
 }catch(Exception f){}
             }
         });
+        
+        JButton viewimg = new JButton("View Images");
+        viewimg.setFont(new Font("Arial", Font.PLAIN, 45));
+        viewimg.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        
    JButton btnAddDigit = new JButton("Results");
         btnAddDigit.setFont(new Font("Arial", Font.PLAIN, 45));
         btnAddDigit.addActionListener(new ActionListener() {
@@ -148,9 +157,11 @@ while((ret=in.readLine())!=null){
                             .addGap(30)
                             .addComponent(go))
                         .addGroup(gl_panel.createSequentialGroup()
-                            .addGap(180) //for the detect button
+                        	.addGap(20)
+                        	.addComponent(viewimg)
+                        	.addGap(40)
                             .addComponent(btnDetect)
-                            .addGap(80)
+                            .addGap(40)
                             .addComponent(btnAddDigit)
                             )))
                 
@@ -196,6 +207,7 @@ while((ret=in.readLine())!=null){
                     
                     .addGap(30) //Directory path wale Panel ke neeche ka gap
                     .addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(viewimg)
                         .addComponent(btnDetect)
                         .addComponent(btnAddDigit)
                         )
@@ -230,7 +242,7 @@ while((ret=in.readLine())!=null){
          ank.append(SelectedDirectory.getPath());
          System.out.println(ank.toString());
          ani.append(SelectedDirectory.getPath());
-         System.out.println(ani.toString());
+
       	 
      	 ///////////////
      	 //The path directory in action

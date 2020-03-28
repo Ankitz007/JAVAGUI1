@@ -93,6 +93,14 @@ public class DemoJFileChooser extends JFrame
         btnDetect.setFont(new Font("Arial", Font.PLAIN, 45));
         btnDetect.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            
+            }
+        });
+        
+        JButton viewimg = new JButton("View Images");
+        viewimg.setFont(new Font("Arial", Font.PLAIN, 45));
+        viewimg.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
             has.delete(0,has.length());
             has.append("python test1.py ");
          	has.append(ani.toString());
@@ -110,8 +118,10 @@ while((ret=in.readLine())!=null){
 }
 //System.out.println("value is : "+ret);
 }catch(Exception f){}
+
             }
         });
+        
    JButton btnAddDigit = new JButton("Results");
         btnAddDigit.setFont(new Font("Arial", Font.PLAIN, 45));
         btnAddDigit.addActionListener(new ActionListener() {
@@ -148,9 +158,11 @@ while((ret=in.readLine())!=null){
                             .addGap(30)
                             .addComponent(go))
                         .addGroup(gl_panel.createSequentialGroup()
-                            .addGap(180) //for the detect button
+                        	.addGap(20)
+                        	.addComponent(viewimg)
+                        	.addGap(40)
                             .addComponent(btnDetect)
-                            .addGap(80)
+                            .addGap(40)
                             .addComponent(btnAddDigit)
                             )))
                 
@@ -196,6 +208,7 @@ while((ret=in.readLine())!=null){
                     
                     .addGap(30) //Directory path wale Panel ke neeche ka gap
                     .addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(viewimg)
                         .addComponent(btnDetect)
                         .addComponent(btnAddDigit)
                         )
