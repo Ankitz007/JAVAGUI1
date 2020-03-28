@@ -34,7 +34,7 @@ public class DemoJFileChooser extends JFrame
    implements ActionListener {
    JButton go;
    private JPanel contentPane;
-   public JPanel panel,panel_1;
+   public JPanel panel,panel_1,panel_2,panel_3;
    JFileChooser chooser;
    String choosertitle;
    StringBuffer ank = new StringBuffer();
@@ -60,25 +60,6 @@ public class DemoJFileChooser extends JFrame
     go.setFont(new Font("Arial", Font.PLAIN, 45));
     go.addActionListener(this);
     //contentPane.add(go);
-    
-    
-    
-    // Figure out where in the filesystem to start displaying
-    File root;
-    root = new File("/home/ankitz/Desktop");
-
-    // Create a TreeModel object to represent our tree of files
-    FileTreeModel model = new FileTreeModel(root);
-
-    // Create a JTree and tell it to display our model
-    JTree tree = new JTree();
-    tree.setModel(model);
-
-    // The JTree can get big, so allow it to scroll.
-    JScrollPane scrollpane = new JScrollPane(tree);
-    
-    
-    
     
     //Yahan se Mera Experiment
    //
@@ -120,6 +101,12 @@ public class DemoJFileChooser extends JFrame
         });
         panel_1 = new JPanel(); //The Smaller Panel
         panel_1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        
+        panel_2 = new JPanel(); //The Scroll Panel
+        panel_2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        
+        panel_3 = new JPanel(); //The Scroll Panel
+        panel_3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
         GroupLayout gl_panel = new GroupLayout(panel);
         
@@ -140,21 +127,25 @@ public class DemoJFileChooser extends JFrame
                             .addGap(80)
                             .addComponent(btnAddDigit)
                             )))
+                
                 .addGroup(gl_panel.createSequentialGroup()
                     .addGap(430) //for Exit button
                     .addComponent(button))
+                .addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
                 .addGroup(gl_panel.createSequentialGroup()
                     .addContainerGap()
                     .addContainerGap()                  
                     .addComponent(label1)
                     .addGap(10)
-                    .addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 542, GroupLayout.PREFERRED_SIZE))  // Directory Path wala panel
                     
                     .addGroup(gl_panel.createSequentialGroup()
-                    .addGap(20) //for Scrollpane
-                    .addComponent(scrollpane))
+                    .addGap(20) 
+                    .addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE) //ScrollPane ke liye
+                    .addGap(25)
+                    .addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 420, GroupLayout.PREFERRED_SIZE)))
                     
-        ); // Width ke liye
+        );
         
         // VERTICAL LAYOUT
         
@@ -168,18 +159,16 @@ public class DemoJFileChooser extends JFrame
                         .addGroup(gl_panel.createSequentialGroup()
                             .addGap(10)
                             .addComponent(go)))
-                    .addGroup(gl_panel.createParallelGroup(Alignment.CENTER)
                     .addGap(20)
+                    .addGroup(gl_panel.createParallelGroup(Alignment.CENTER)
                     .addComponent(label1)                    
-                    .addGroup(gl_panel.createSequentialGroup()
-                    .addGap(10)
-                    .addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.DEFAULT_SIZE))) //Height ke liye
-                    .addGap(40)
+                    .addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)) //Height ke liye
+                    .addGap(30)
                     .addGroup(gl_panel.createParallelGroup(Alignment.CENTER)
-                    .addGap(20)
-                    .addComponent(scrollpane)) //For Scrollpane
+                    .addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE) //Scrollpane wala panel
+                    .addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)) 
                     
-                    .addGap(200) //Smaller Panel ke neeche ka gap
+                    .addGap(30) //Directory path wale Panel ke neeche ka gap
                     .addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
                         .addComponent(btnDetect)
                         .addComponent(btnAddDigit)
@@ -189,8 +178,8 @@ public class DemoJFileChooser extends JFrame
                     .addContainerGap())
         );
         panel.setLayout(gl_panel);
+   ///////
    //Mere exp ki ending
-   //
    ///////
    }
 
@@ -214,16 +203,38 @@ public class DemoJFileChooser extends JFrame
          SelectedDirectory = chooser.getSelectedFile();
          ank.append(SelectedDirectory.getPath());
          System.out.println(ank.toString());
-         panel_1.setLayout(new BorderLayout(0, 0));
+      
+     	 ///////////////
+     	 //The path directory in action
+     	 
+     	 panel_1.setLayout(new BorderLayout(0, 0));
          JLabel newlabel = new JLabel();
-     
-     panel_1.removeAll();
-     newlabel.setText(ank.toString());
-     newlabel.setFont(new Font("Arial", Font.BOLD, 30));
-      panel_1.add(newlabel);
-      setVisible(true);  
-      ank.delete(0, ank.length());
-      }
+		 panel_1.removeAll();
+		 newlabel.setText(ank.toString());
+		 newlabel.setFont(new Font("Arial", Font.BOLD, 30));
+	     panel_1.add(newlabel);
+		 setVisible(true);       
+	     panel_2.setLayout(new BorderLayout(0, 0));
+	     
+	     //////////////
+	     //The ScrollPane in action
+	     
+	     // Figure out where in the filesystem to start displaying
+		File root;
+		root = new File(ank.toString());
+		// Create a TreeModel object to represent our tree of files
+		FileTreeModel model = new FileTreeModel(root);
+		// Create a JTree and tell it to display our model
+		JTree tree = new JTree();
+		tree.setModel(model);
+		// The JTree can get big, so allow it to scroll.
+		JScrollPane scrollpane = new JScrollPane(tree);
+	     
+	     panel_2.removeAll();
+	     panel_2.add(scrollpane);
+	     setVisible(true);
+	     ank.delete(0, ank.length());
+}
     else {
       System.out.println("No Selection ");
       }
