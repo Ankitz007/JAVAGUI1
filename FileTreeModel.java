@@ -26,7 +26,7 @@ class FileTreeModel implements TreeModel {
     public int getChildCount(Object parent) {
         String[] children = ((File)parent).list();
         if (children == null) return 0;
-        System.out.println("printing child length:" + children.length);
+        //System.out.println("printing child length:" + children.length);
         return children.length;
     }
 

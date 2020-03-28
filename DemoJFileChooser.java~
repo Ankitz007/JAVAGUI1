@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.LayerUI;
 
 
 public class DemoJFileChooser extends JFrame
@@ -55,6 +56,10 @@ public class DemoJFileChooser extends JFrame
         panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
         contentPane.add(panel, BorderLayout.CENTER);
         
+	//Gradient Layer Add ki hai
+    LayerUI<JComponent> layerUI = new WallpaperLayerUI();
+    JLayer<JComponent> jlayer = new JLayer<JComponent>(panel, layerUI);
+    contentPane.add (jlayer);
         
     go = new JButton("Select");
     go.setFont(new Font("Arial", Font.PLAIN, 45));
@@ -162,7 +167,7 @@ public class DemoJFileChooser extends JFrame
                     .addGap(20)
                     .addGroup(gl_panel.createParallelGroup(Alignment.CENTER)
                     .addComponent(label1)                    
-                    .addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)) //Height ke liye
+                    .addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)) //Height ke liye
                     .addGap(30)
                     .addGroup(gl_panel.createParallelGroup(Alignment.CENTER)
                     .addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE) //Scrollpane wala panel
@@ -254,5 +259,32 @@ public class DemoJFileChooser extends JFrame
                 }
             }
         });
+    }    
     }
-    }
+    
+    /////////////
+    //Gradient Layer ki Settings
+
+    class WallpaperLayerUI extends LayerUI<JComponent> {
+  @Override
+  public void paint(Graphics g, JComponent c) {
+    super.paint(g, c);
+ 
+    Graphics2D g2 = (Graphics2D) g.create();
+ 
+    int w = c.getWidth();
+    int h = c.getHeight();
+    g2.setComposite(AlphaComposite.getInstance(
+            AlphaComposite.SRC_OVER, .2f));
+    g2.setPaint(new GradientPaint(0, 0, Color.yellow, 0, h, Color.green));
+    g2.fillRect(0, 0, w, h);
+ 
+    g2.dispose();
+  }
+}
+    
+    
+    
+    
+    
+    

@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.LayerUI;
 
 
 public class DemoJFileChooser extends JFrame
@@ -45,7 +46,7 @@ public class DemoJFileChooser extends JFrame
   public DemoJFileChooser() {
   
   setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1000, 1000);
+        setBounds(50, 50, 1000, 1000);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(6, 5, 5, 5));
         setContentPane(contentPane);
@@ -55,6 +56,10 @@ public class DemoJFileChooser extends JFrame
         panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
         contentPane.add(panel, BorderLayout.CENTER);
         
+	//Gradient Layer Add ki hai
+    LayerUI<JComponent> layerUI = new WallpaperLayerUI();
+    JLayer<JComponent> jlayer = new JLayer<JComponent>(panel, layerUI);
+    contentPane.add (jlayer);
         
     go = new JButton("Select");
     go.setFont(new Font("Arial", Font.PLAIN, 45));
@@ -254,5 +259,32 @@ public class DemoJFileChooser extends JFrame
                 }
             }
         });
+    }    
     }
-    }
+    
+    /////////////
+    //Gradient Layer ki Settings
+
+    class WallpaperLayerUI extends LayerUI<JComponent> {
+  @Override
+  public void paint(Graphics g, JComponent c) {
+    super.paint(g, c);
+ 
+    Graphics2D g2 = (Graphics2D) g.create();
+ 
+    int w = c.getWidth();
+    int h = c.getHeight();
+    g2.setComposite(AlphaComposite.getInstance(
+            AlphaComposite.SRC_OVER, .2f));
+    g2.setPaint(new GradientPaint(0, 0, Color.yellow, 0, h, Color.green));
+    g2.fillRect(0, 0, w, h);
+ 
+    g2.dispose();
+  }
+}
+    
+    
+    
+    
+    
+    
