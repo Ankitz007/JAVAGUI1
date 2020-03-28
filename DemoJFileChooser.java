@@ -29,6 +29,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.SwingConstants;
 import javax.swing.plaf.LayerUI;
+ import java.io.*;
 
 
 public class DemoJFileChooser extends JFrame
@@ -39,6 +40,8 @@ public class DemoJFileChooser extends JFrame
    JFileChooser chooser;
    String choosertitle;
    StringBuffer ank = new StringBuffer();
+   StringBuffer has = new StringBuffer();
+   StringBuffer ani = new StringBuffer();
    File SelectedDirectory;
    private Font font = new Font("monospaced",Font.BOLD,25);
    
@@ -85,10 +88,28 @@ public class DemoJFileChooser extends JFrame
             }
         });
         */
+        
 	JButton btnDetect = new JButton("Detect");
         btnDetect.setFont(new Font("Arial", Font.PLAIN, 45));
         btnDetect.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            has.delete(0,has.length());
+            has.append("python test1.py ");
+         	has.append(ani.toString());
+            
+        	System.out.println(has.toString());
+        	System.out.println(ank.toString());
+            try{
+Process p = Runtime.getRuntime().exec(has.toString());
+BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+String ret = new String();
+
+while((ret=in.readLine())!=null){
+   System.out.println(ret);
+   ani.delete(0,ani.length());
+}
+//System.out.println("value is : "+ret);
+}catch(Exception f){}
             }
         });
    JButton btnAddDigit = new JButton("Results");
@@ -208,7 +229,9 @@ public class DemoJFileChooser extends JFrame
          SelectedDirectory = chooser.getSelectedFile();
          ank.append(SelectedDirectory.getPath());
          System.out.println(ank.toString());
-      
+         ani.append(SelectedDirectory.getPath());
+
+      	 
      	 ///////////////
      	 //The path directory in action
      	 
