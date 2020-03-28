@@ -93,7 +93,15 @@ public class DemoJFileChooser extends JFrame
         btnDetect.setFont(new Font("Arial", Font.PLAIN, 45));
         btnDetect.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            
+	try{
+Process p = Runtime.getRuntime().exec("bash run.sh -i samples/test -o /home/ankitz/Desktop/output -c /home/ankitz/Desktop/output/res.csv");
+BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+String ret = new String();
+while((ret=in.readLine())!=null){
+   System.out.println(ret);
+}
+//System.out.println("value is : "+ret);
+}catch(Exception z){}	            
             }
         });
         
