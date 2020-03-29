@@ -32,7 +32,7 @@ import javax.swing.plaf.LayerUI;
  import java.io.*;
 
 
-public class DemoJFileChooser extends JFrame
+public class DemoGui extends JFrame
    implements ActionListener {
    JButton go;
    private JPanel contentPane;
@@ -92,16 +92,7 @@ public class DemoJFileChooser extends JFrame
 	JButton btnDetect = new JButton("Detect");
         btnDetect.setFont(new Font("Arial", Font.PLAIN, 45));
         btnDetect.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-	try{
-Process p = Runtime.getRuntime().exec("bash run.sh -i samples/test -o /home/ankitz/Desktop/output -c /home/ankitz/Desktop/output/res.csv");
-BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-String ret = new String();
-while((ret=in.readLine())!=null){
-   System.out.println(ret);
-}
-//System.out.println("value is : "+ret);
-}catch(Exception e){}	            
+            public void actionPerformed(ActionEvent e) {          
             }
         });
         
@@ -109,24 +100,6 @@ while((ret=in.readLine())!=null){
         viewimg.setFont(new Font("Arial", Font.PLAIN, 45));
         viewimg.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            has.delete(0,has.length());
-            has.append("python test1.py ");
-         	has.append(ani.toString());
-            
-        	System.out.println(has.toString());
-        	System.out.println(ank.toString());
-            try{
-Process p = Runtime.getRuntime().exec(has.toString());
-BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-String ret = new String();
-
-while((ret=in.readLine())!=null){
-   System.out.println(ret);
-   ani.delete(0,ani.length());
-}
-//System.out.println("value is : "+ret);
-}catch(Exception f){}
-
             }
         });
         
